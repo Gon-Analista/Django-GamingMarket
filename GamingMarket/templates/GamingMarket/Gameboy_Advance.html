@@ -1,0 +1,185 @@
+<!doctype html>
+{% load static %}
+{% load humanize %}
+<html lang="es">
+  <head>
+    <!-- Pagina desarrollada por Gonzalo Ulloa y Jonathan Castillo -->
+    <title>Categoria Gameboy Advance</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'GamingMarket/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'GamingMarket/css/style.css' %}">
+
+  </head>
+  <body class ="bg-hex-azul ">
+    <nav class="navbar navbar-expand-md navbar-light bg-hex-naranja font-weight-bolder container-items">
+      <a class="navbar-brand zoom" href="{% url 'index' %}">Inicio</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto align-items-baseline">
+          <li>
+            <div class="container-icon">
+              <div class="container-cart-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="icon-cart">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+              </svg>
+              <div class="count-products">
+                  <span id="contador-productos">0</span>
+              </div>
+            </div>
+              <div class="container-cart-products hidden-cart">
+                  <div class="row-product">
+                      <div class="cart-product">
+                          <div class="info-cart-products">
+                              
+                          </div>
+                      </div>
+                  </div>
+                  <div class="cart-total">
+                      <h3>Total :</h3>
+                      <span class="total-a-pagar">$0</span>
+                  </div>
+              </div>
+  
+          </div>
+          </li>
+          <li class="nav-item dropdown ml-md-2">
+            <a class="nav-link dropdown-toggle zoom" href="#" id="categoriasDropdown" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Categorias
+            </a>
+            <div class="dropdown-menu bg-hex-naranja" aria-labelledby="categoriasDropdown">
+              <a class="dropdown-item font-weight-bold" href="{% url 'Super_Nintendo' %}">Super Nintendo</a>
+              <a class="dropdown-item font-weight-bold" href="{% url 'Gameboy_Advance' %}">Gameboy Advance</a>
+              <a class="dropdown-item font-weight-bold" href="{% url 'Nintendo_64' %}">Nintendo 64</a>
+              <a class="dropdown-item font-weight-bold" href="{% url 'Ps1' %}">Play Station 1</a>
+              <a class="dropdown-item font-weight-bold" href="{% url 'Ps2' %}">Play Station 2</a>
+            </div>
+          </li>
+          {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link zoom" href="{% url 'logout' %}">Cerrar Sesion - @{{ user.username }}</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link zoom" href="{% url 'registro' %}">Registrate</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link zoom" href="{% url 'login' %}">Mi cuenta</a>
+        </li>
+        {% endif %}
+        </ul>
+    
+        <form class="form-inline ml-md-2 ">
+          <div class="input-group">
+            <input class="form-control form-control-sm" type="search" placeholder="" >
+            <div>
+              <button class="btn bg-dark text-white btn-sm" type="submit">Buscar</button>
+            </div>
+          </div>
+        </form>
+    
+      </div>
+    </nav>
+
+    <p></p>
+    
+    <div class="text-center container logo">
+        <img class="pulse" src="{% static 'GamingMarket/img/logo_transparent 400.png' %}" alt="logo">
+        <img src="{% static 'GamingMarket/img/fondo-1.gif' %}" class="imagen_fondo" alt="fondo-1">
+        <img src="{% static 'GamingMarket/img/fondo-2.gif' %}" class="imagen_fondo-2" alt="fondo-2">
+        <p class="font-weight-bolder pincel-tamaño fade-in"> Hecho por fanáticos para fanáticos.</p>
+        <p class="font-weight-bolder pincel-tamaño subrayar slide-in-r active" id="contenido"> Juegos de Gameboy Advance!</p>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered col-12 col-md-6">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="font-weight-bold">Juego añadido al carrito!</h5>
+                    <img src="{% static 'GamingMarket/img/cofre.gif' %}" alt="cofre abriendose">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary mx-auto btn-aceptar" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="container my-5 font-weight-bold">
+      <div class="container-items">
+        <div class="row mt-5">
+          <div class="col-lg-4 mb-4">
+            {% for auxProd in productos %}
+            {% if auxProd.plataforma_producto == "Gameboy_Advance" %}
+            <div class="card bg-hex-naranja border-hex-naranja">       
+              {% if auxProd.imagen_producto %}
+              <img src="{{auxProd.imagen_producto.url}}" class="card-img-top" alt="Juego 1">
+              {% endif %}
+              <div class="card-body" >              
+                <h5 class="card-title text-center font-weight-bolder">{{auxProd.nombre_producto}}</h5>
+                <button id="buy-btn" type="button" class="btn btn-primary btn-card btn-add-cart zoom" data-toggle="modal" data-target="#exampleModal">Comprar</button>
+                <p class="Genero">Genero: {{auxProd.genero_producto}}</p>
+                <p class="stock">Stock: {{auxProd.stock_producto}} Unidades</p>
+                <p class="precio">Precio: ${{auxProd.precio_producto|intcomma}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4">
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+    </section>
+
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="{% static 'GamingMarket/js/Categorias.js' %}"></script>
+    <script src="{% static 'GamingMarket/js/Carrito.js' %}"></script>
+
+    <footer class="bg-hex-naranja py-4 font-weight-bolder text-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h4 class="text-center mb-4 font-weight-bold">Creado y administrado por:</h4>
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="badge-base LI-profile-badge mb-2" data-locale="es_ES" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="gonzalo-ulloa-analista" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://cl.linkedin.com/in/gonzalo-ulloa-analista?trk=profile-badge">Gonzalo Ulloa</a></div>
+                        <div class="badge-base LI-profile-badge" data-locale="es_ES" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="jonathan-castillo-gutiérrez-75a191252" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://cl.linkedin.com/in/jonathan-castillo-guti%C3%A9rrez-75a191252?trk=profile-badge">Jonathan Castillo Gutiérrez</a></div>
+                        <p></p>
+                    </div>
+                    <p></p>
+                </div>
+                <div class="col-lg-4 mb-4 text-center">
+                    <p></p>
+                    <h4 class="text-center mb-4 font-weight-bold">Acerca de Time Warp Gaming:</h4>
+                    <p>Somos los encargados de brindar artículos totalmente originales.</p>
+                    <p>Tienda intuitiva con vendedores apasionados por los videojuegos retro.</p>
+                    <p>Envíos a toda la zona nacional vía Starken/ChileExpress.</p>
+                </div>
+                <div class="col-lg-4 mb-4 text-center">
+                    <h4 class="text-center mb-4 font-weight-bold">Contáctanos:</h4>
+                    <p>Teléfono: 123456789</p>
+                    <p>Email: info@timewarpgaming.com</p>
+                    <p>Dirección: Calle Falsa 123, Santiago, Chile</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>© 2023 Compra de video-juegos. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+  </body>
+</html>
