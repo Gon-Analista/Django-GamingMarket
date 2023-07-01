@@ -120,13 +120,9 @@ def pedido_eliminar(request, pedido_id):
     return redirect(to='carrito')
 
 
-
+@login_required
 def forma_pago(request):
-    productos = Producto.objects.all() #es lo mismo que hacer un 'Select * From Productos'
-    context={
-        'productos' : productos,
-    }
-    return render(request, 'GamingMarket/forma_pago.html', context)
+    return render(request, 'GamingMarket/forma_pago.html')
 
 
 
