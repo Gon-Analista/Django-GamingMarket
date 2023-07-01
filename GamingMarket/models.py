@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -31,7 +31,7 @@ class Producto(models.Model):
 
 class Pedido(models.Model):
     id_pedido           = models.AutoField(db_column='idPedido', primary_key=True) 
-    id_cliente          = models.ForeignKey('Cliente',on_delete=models.CASCADE, db_column='id_cliente')
+    id_cliente          = models.ForeignKey(User, on_delete=models.CASCADE)
     id_producto         = models.ForeignKey('Producto',on_delete=models.CASCADE, db_column='id_producto')
     fecha_pedido        = models.DateField(null=False) 
     estado_pedido       = models.CharField(max_length=20, null=False)
@@ -39,15 +39,3 @@ class Pedido(models.Model):
     
     def __str__(self):
         return "Usuario: "+str(self.id_cliente)+" | Producto: "+str(self.id_producto.nombre_producto)+" | Cantidad: "+str(self.cantidad_producto)
-
-class Cliente(models.Model):
-    id_cliente         = models.AutoField(db_column='idCliente', primary_key=True) 
-    nombre_usuario     = models.CharField(max_length=20, blank=False, null=False)
-    alias_usuario      = models.CharField(max_length=20, blank=False, null=False)
-    email              = models.EmailField(unique=True, max_length=100, blank=False, null=False)
-    celular            = models.CharField(max_length=45, blank=True, null=True)
-    direccion          = models.CharField(max_length=50, blank=False, null=False)
-    activo             = models.IntegerField()
-
-    def __str__(self):
-        return str(self.alias_usuario)  

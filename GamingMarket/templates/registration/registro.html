@@ -24,30 +24,13 @@
       <ul class="navbar-nav ml-auto align-items-baseline">
         <li>
           <div class="container-icon">
-            <div class="container-cart-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            <div class="container-cart-icon zoom">
+            <a href="{% url 'carrito' %}" class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="icon-cart">
                 <path stroke-linecap="round" stroke-linejoin="round"
                     d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-            </svg>
-            <div class="count-products">
-                <span id="contador-productos">0</span>
-            </div>
+            </svg> Carrito</a>
           </div>
-            <div class="container-cart-products hidden-cart">
-                <div class="row-product">
-                    <div class="cart-product">
-                        <div class="info-cart-products">
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="cart-total">
-                    <h3>Total :</h3>
-                    <span class="total-a-pagar">$0</span>
-                </div>
-            </div>
-
         </div>
         </li>
         <li class="nav-item dropdown ml-md-2">
@@ -59,11 +42,10 @@
             <a class="dropdown-item font-weight-bold" href="{% url 'Super_Nintendo' %}">Super Nintendo</a>
             <a class="dropdown-item font-weight-bold" href="{% url 'Gameboy_Advance' %}">Gameboy Advance</a>
             <a class="dropdown-item font-weight-bold" href="{% url 'Nintendo_64' %}">Nintendo 64</a>
-            <a class="dropdown-item font-weight-bold" href="{% url 'Ps1' %}">Play Station 1</a>
-            <a class="dropdown-item font-weight-bold" href="{% url 'Ps2' %}">Play Station 2</a>
+            <a class="dropdown-item font-weight-bold" href="{% url 'PS1' %}">Play Station 1</a>
+            <a class="dropdown-item font-weight-bold" href="{% url 'PS2' %}">Play Station 2</a>
           </div>
         </li>
-        
         {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link zoom" href="{% url 'logout' %}">Cerrar Sesion - @{{ user.username }}</a>
@@ -77,16 +59,6 @@
         </li>
         {% endif %}
       </ul>
-  
-      <form class="form-inline ml-md-2 ">
-        <div class="input-group">
-          <input class="form-control form-control-sm" type="search" placeholder="" >
-          <div>
-            <button class="btn bg-dark text-white btn-sm" type="submit">Buscar</button>
-          </div>
-        </div>
-      </form>
-  
     </div>
   </nav>
     <p></p>

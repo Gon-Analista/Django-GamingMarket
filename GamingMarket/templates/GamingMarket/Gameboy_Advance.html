@@ -24,30 +24,13 @@
         <ul class="navbar-nav ml-auto align-items-baseline">
           <li>
             <div class="container-icon">
-              <div class="container-cart-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              <div class="container-cart-icon zoom">
+              <a href="{% url 'carrito' %}" class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="icon-cart">
                   <path stroke-linecap="round" stroke-linejoin="round"
                       d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-              </svg>
-              <div class="count-products">
-                  <span id="contador-productos">0</span>
-              </div>
+              </svg> Carrito</a>
             </div>
-              <div class="container-cart-products hidden-cart">
-                  <div class="row-product">
-                      <div class="cart-product">
-                          <div class="info-cart-products">
-                              
-                          </div>
-                      </div>
-                  </div>
-                  <div class="cart-total">
-                      <h3>Total :</h3>
-                      <span class="total-a-pagar">$0</span>
-                  </div>
-              </div>
-  
           </div>
           </li>
           <li class="nav-item dropdown ml-md-2">
@@ -59,33 +42,44 @@
               <a class="dropdown-item font-weight-bold" href="{% url 'Super_Nintendo' %}">Super Nintendo</a>
               <a class="dropdown-item font-weight-bold" href="{% url 'Gameboy_Advance' %}">Gameboy Advance</a>
               <a class="dropdown-item font-weight-bold" href="{% url 'Nintendo_64' %}">Nintendo 64</a>
-              <a class="dropdown-item font-weight-bold" href="{% url 'Ps1' %}">Play Station 1</a>
-              <a class="dropdown-item font-weight-bold" href="{% url 'Ps2' %}">Play Station 2</a>
+              <a class="dropdown-item font-weight-bold" href="{% url 'PS1' %}">Play Station 1</a>
+              <a class="dropdown-item font-weight-bold" href="{% url 'PS2' %}">Play Station 2</a>
             </div>
           </li>
-          {% if user.is_authenticated %}
+        <!-- Modal eliminar -->
+        <div class="modal fade" id="exampleModal" role="dialog" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered col-12 col-md-6" role="document">
+              <div class="modal-content">
+                  <div class="modal-header bg-danger">
+                      <h5 class="modal-title font-weight-bold w-100 text-center text-white" id="alertModalLabel">Cerrar sesion</h5>
+                      <button type="button" class="close fix-button" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body text-center">
+                      <h5 class="modal-title font-weight-bold w-100 text-center text-dark" id="alertModalLabel">¿Estás seguro de cerrar la sesion?</h5>
+                      <p id="alertMessage" class="font-weight-bold sign-in-log-in"></p>
+                      <img src="{% static 'GamingMarket/img/blacksmith.gif' %}" alt="cofre abriendose">
+                  </div>
+                  <div class="modal-footer">
+                      <a href="{% url 'logout' %}" class="btn btn-danger zoom mx-auto">Confirmar</a>
+                  </div>
+              </div>
+          </div>
+        </div>
+        {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link zoom" href="{% url 'logout' %}">Cerrar Sesion - @{{ user.username }}</a>
+          <a class="nav-link zoom" id="buy-btn" data-toggle="modal" data-target="#exampleModal">Cerrar Sesion - @{{ user.username }}</a>
         </li>
         {% else %}
-        <li class="nav-item">
-          <a class="nav-link zoom" href="{% url 'registro' %}">Registrate</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link zoom" href="{% url 'login' %}">Mi cuenta</a>
-        </li>
-        {% endif %}
+          <li class="nav-item">
+            <a class="nav-link zoom" href="{% url 'registro' %}">Registrate</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link zoom" href="{% url 'login' %}">Mi cuenta</a>
+          </li>
+          {% endif %}
         </ul>
-    
-        <form class="form-inline ml-md-2 ">
-          <div class="input-group">
-            <input class="form-control form-control-sm" type="search" placeholder="" >
-            <div>
-              <button class="btn bg-dark text-white btn-sm" type="submit">Buscar</button>
-            </div>
-          </div>
-        </form>
-    
       </div>
     </nav>
 
@@ -126,7 +120,32 @@
               {% endif %}
               <div class="card-body" >              
                 <h5 class="card-title text-center font-weight-bolder">{{auxProd.nombre_producto}}</h5>
-                <button id="buy-btn" type="button" class="btn btn-primary btn-card btn-add-cart zoom" data-toggle="modal" data-target="#exampleModal">Comprar</button>
+                <div class="modal fade" id="exampleModal{{ auxProd.id_producto }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered col-12 col-md-6">
+                      <div class="modal-content">
+                          <div class="modal-body text-center ">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                              </button>
+                              {% if user.is_authenticated %}
+                              <h5 class="font-weight-bold">Juego añadido al carrito!</h5>
+                              <img src="{% static 'GamingMarket/img/cofre.gif' %}" alt="cofre abriendose">
+                              {% else %}
+                              <h5 class="font-weight-bold">Por favor primero Ingrese como Usuario</h5>
+                              <img src="{% static 'GamingMarket/img/blacksmith.gif' %}" alt="cofre abriendose">
+                              {% endif %}
+                          </div>
+                          <div class="modal-footer mx-auto">
+                            <form action="{% url 'Add' auxProd.id_producto %}" method="POST" >
+                              {% csrf_token %}
+                              <button type="submit" class="btn btn-primary btn-aceptar " >Aceptar</button>
+                            </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+                <button id="buy-btn" class="btn btn-primary btn-card btn-add-cart zoom" data-toggle="modal" data-target="#exampleModal{{ auxProd.id_producto }}">Añadir</button>
+               
                 <p class="Genero">Genero: {{auxProd.genero_producto}}</p>
                 <p class="stock">Stock: {{auxProd.stock_producto}} Unidades</p>
                 <p class="precio">Precio: ${{auxProd.precio_producto|intcomma}}</p>
