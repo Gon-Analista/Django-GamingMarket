@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
+
 
 # Create your views here.
 @login_required
@@ -55,4 +57,4 @@ def Productos_editar(request, pk):
 def Productos_eliminar(request, pk):
     productos = Producto.objects.filter(id_producto=pk)
     productos.delete()
-    return redirect(to='Productos')
+    return redirect(to='Productos') 
